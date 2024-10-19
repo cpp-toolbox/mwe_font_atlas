@@ -1,0 +1,6 @@
+{
+  "sub_textures": {
+    "marked_concrete": { "x": 0, "y": 150, "width": 150, "height": 150 },
+    "wood": { "x": 0, "y": 0, "width": 150, "height": 150 }
+  }
+}
