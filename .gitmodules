@@ -16,6 +16,6 @@
 [submodule "src/texture_atlas"]
 	path = src/texture_atlas
 	url = git@github.com:cpp-toolbox/texture_atlas.git
-[submodule "src/render_primitives"]
-	path = src/render_primitives
-	url = git@github.com:cpp-toolbox/render_primitives.git
+[submodule "src/vertex_geometry"]
+	path = src/vertex_geometry
+	url = git@github.com:cpp-toolbox/vertex_geometry.git
