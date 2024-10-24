@@ -19,3 +19,6 @@
 [submodule "src/vertex_geometry"]
 	path = src/vertex_geometry
 	url = git@github.com:cpp-toolbox/vertex_geometry.git
+[submodule "src/font_atlas"]
+	path = src/font_atlas
+	url = git@github.com:cpp-toolbox/font_atlas.git
