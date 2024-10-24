@@ -27,7 +27,7 @@ struct OpenGLDrawingData {
 
 OpenGLDrawingData prepare_drawing_data_and_opengl_drawing_data(ShaderCache &shader_cache, FontAtlas &font_atlas,
                                                                const std::string &text) {
-    TextMesh text_mesh = font_atlas.generate_text_mesh(text, -1, 0, 3);
+    TextMesh text_mesh = font_atlas.generate_text_mesh_with_width(text, -1, 0, 1, 0.1);
 
     // vbo: vertex buffer object
     // vao: vertex array object

@@ -67,6 +67,54 @@ FontAtlas::~FontAtlas() {
     // cleanup if necessary (textureatlas handles opengl texture cleanup)
 }
 
+glm::vec2 FontAtlas::get_text_dimensions_in_ndc(const std::string &text, float scale) const {
+    float total_width_ndc = 0.0f;
+    float max_height_ndc = 0.0f;
+
+    scale = default_scale * scale;
+
+    for (const char &c : text) {
+        if (characters.find(c) == characters.end()) {
+            std::cerr << "Character '" << c << "' not found in the font atlas." << std::endl;
+            continue;
+        }
+
+        const Character &ch = characters.at(c);
+
+        total_width_ndc += (ch.x_dist_to_next_char_px * scale);
+
+        float character_height_ndc = ch.height_px * scale;
+        if (character_height_ndc > max_height_ndc) {
+            max_height_ndc = character_height_ndc;
+        }
+    }
+
+    return glm::vec2(total_width_ndc, max_height_ndc);
+}
+
+TextMesh FontAtlas::generate_text_mesh_with_width(const std::string &text, float x, float y, float width_ndc,
+                                                  float padding_percentage) {
+    float default_scale = 1.0f;
+    glm::vec2 text_dimensions_ndc = get_text_dimensions_in_ndc(text, default_scale);
+
+    float text_width_ndc = text_dimensions_ndc.x;
+    float text_height_ndc = text_dimensions_ndc.y;
+
+    float padding_ndc_x = width_ndc * padding_percentage;
+    float padding_ndc_y = padding_ndc_x;
+
+    float available_width_ndc = width_ndc - 2.0f * padding_ndc_x;
+
+    float scale_factor = available_width_ndc / text_width_ndc;
+
+    float adjusted_x = x + padding_ndc_x;
+    float adjusted_y = y + padding_ndc_y;
+
+    TextMesh mesh = generate_text_mesh(text, adjusted_x, adjusted_y, scale_factor);
+
+    return mesh;
+}
+
 TextMesh FontAtlas::generate_text_mesh(const std::string &text, float x, float y, float scale) {
     TextMesh mesh;
     std::vector<std::vector<unsigned int>> index_batches; // List of lists of indices for each quad
